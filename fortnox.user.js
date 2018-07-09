@@ -4,7 +4,7 @@
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
-// @downloadURL https://github.com/Wikimedia-Sverige/scripts/blob/master/fortnox.user.js
+// @downloadURL https://github.com/Wikimedia-Sverige/scripts/raw/master/fortnox.user.js
 // ==/UserScript==
 
 $(function() {
