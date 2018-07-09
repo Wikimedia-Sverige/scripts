@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1
+// @version  1.1
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -36,6 +36,7 @@ $(function() {
     185203: "En gemenskap för alla 2018",
     186101: "Organisationsutveckling 2018",
     186201: "Erfarenhetsutbyte 2018",
+    186203: "Wikimania 2019",
     186301: "Föreningsengagemang 2018",
     186302: "FOSS för föreningen 2018"
   };
