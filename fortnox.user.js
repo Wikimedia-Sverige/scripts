@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.1
+// @version  1.2
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -15,6 +15,7 @@ $(function() {
     183102: "Kopplat Öppet Kulturarv 2018",
     183103: "Wikipedia i utbildning 2018",
     183104: "Samsyn 2018",
+    183116: "Biblioteksdata 2018",
     173125: "Statens museer för världskultur 2017 - Uppladdning",
     173129: "Statens museer för världskultur 2017 - WiR",
     173126: "3D2Commons 2017",
