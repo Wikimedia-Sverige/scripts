@@ -25,6 +25,7 @@ import re
 
 
 RE_HOOK_FUNCTION = re.compile(r"^\tpublic static function on([^\(]+)\(")
+RE_DATE = re.compile(r"^Date:\s+(\d{4}-\d{2}-\d{2}$)", re.MULTILINE)
 
 
 def print_extension_json_info(extension_json_file):
@@ -79,7 +80,7 @@ def get_update_date():
         stdout=subprocess.PIPE,
         universal_newlines=True
     ).stdout
-    date = log.split("\n")[2].split("   ")[1]
+    date = RE_DATE.search(log).group(1)
     return date
 
 
