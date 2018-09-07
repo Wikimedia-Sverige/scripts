@@ -10,9 +10,10 @@
 $(function() {
   var projects = {
     992400: "Anställda",
+    992401: "Anställda - Utbildning",
     992500: "Externa",
     172511: "EU-ansökan om HOT",
-    183102: "Kopplat Öppet Kulturarv 2018",
+    183102: "FindingGLAMs 2018",
     183103: "Wikipedia i utbildning 2018",
     183104: "Samsyn 2018",
     183116: "Biblioteksdata 2018",
