@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.3
+// @version  1.4
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -11,7 +11,7 @@ $(function() {
   var projects = {
     992400: "Anställda",
     992401: "Anställda - Utbildning",
-    992500: "Externa",
+    992501: "Externa",
     172511: "EU-ansökan om HOT",
     183102: "FindingGLAMs 2018",
     183103: "Wikipedia i utbildning 2018",
