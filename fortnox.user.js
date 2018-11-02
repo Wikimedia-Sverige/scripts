@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.6
+// @version  1.7
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -45,13 +45,22 @@ $(function() {
   };
   for(let i = 0; i < 14; i ++) {
     let projectName = projects[$("#project_" + i).val()];
-    $("#project_" + i).after($('<img alt="🛈" title="' + projectName + '"/>'));
-    $(this).next().attr("title", projectName);
-    $("#project_" + i).on("change", function() {
-      let projectName2 = projects[this.value];
-      $(this).next().attr("title", projectName2);
+    let $projectInput = $("#project_" + i);
+    $("<span></span>")
+      .text(projectName)
+      .css({
+        "white-space": "normal",
+        "border-left": "1px solid black"
+      })
+      .insertAfter($projectInput);
+    $projectInput.on("change", function() {
+      let projectNumber = Number(this.value);
+      if(projectNumber === 0){
+        $(this).next().text("");
+      } else {
+        let selectedProject = projects[projectNumber];
+        $(this).next().text(selectedProject);
+      }
     });
-    let projectName2 = projects[this.value];
-    $(this).next().attr("title", projectName2);
   }
 });
