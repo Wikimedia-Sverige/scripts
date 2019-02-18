@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.7
+// @version  1.8
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -53,7 +53,7 @@ $(function() {
         "border-left": "1px solid black"
       })
       .insertAfter($projectInput);
-    $projectInput.on("change", function() {
+    $projectInput.on("blur", function() {
       let projectNumber = Number(this.value);
       if(projectNumber === 0){
         $(this).next().text("");
