@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.9
+// @version  1.10
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -66,6 +66,7 @@ $(function() {
     196201: "Erfarenhetsutbyte 2019",
     196301: "Föreningsengagemang 2019",
     196302: "FOSS för föreningen 2019",
+    195204: "Wikimania 2019",
   };
   for(let i = 0; i < 14; i ++) {
     let projectName = projects[$("#project_" + i).val()];
