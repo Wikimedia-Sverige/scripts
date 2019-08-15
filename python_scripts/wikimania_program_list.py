@@ -79,7 +79,7 @@ def create_wikitext_item(event):
 def build_invoke_string(parameters):
     wikitext = '{{#invoke:Program|item'
     for k, v in parameters.items():
-        wikitext += f'|{k}={v}'
+        wikitext += '|{}={}'.format(k, v)
     wikitext += '}}'
     return wikitext
 
@@ -92,7 +92,7 @@ def build_presenters_string(persons_element):
 
 if __name__ == '__main__':
     tree = ElementTree.parse(sys.argv[1])
-    print(f'<templatestyles src="{CSS_PAGE}" />\n')
+    print('<templatestyles src="{}" />\n'.format(CSS_PAGE))
     root = tree.getroot()
     days = root.findall('.//day')
     day_index = 1
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         day = get_next_day(days)
         days.remove(day)
         day_string = build_day_string(day)
-        print('{{#ifeq:{{{day}}}' + f'|{day_index}|', end='')
+        print('{{#ifeq:{{{day}}}' + '|{}|'.format(day_index), end='')
         print('{{#invoke:Program|start|accessibility={{{accessibility}}}|research={{{research}}}|strategy={{{strategy}}}|education={{{education}}}|growth={{{growth}}}|technology={{{technology}}}|partnerships={{{partnerships}}}|technology={{{technology}}}|strategy={{{strategy}}}|health={{{health}}}|partnerships={{{partnerships}}}|multimedia={{{multimedia}}}|glam={{{glam}}}}}', end='')
         events = day.findall('.//event')
         while events:
