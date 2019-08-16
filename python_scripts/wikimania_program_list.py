@@ -1,6 +1,7 @@
 import sys
 from xml.etree import ElementTree
 import datetime
+from collections import OrderedDict
 
 
 DAY_TITLE_FORMAT = '%A %d %B'
@@ -53,7 +54,7 @@ def get_next_event(events):
 
 
 def create_wikitext_item(event):
-    parameters = {}
+    parameters = OrderedDict()
     start = event.find('start').text
     parameters['start'] = start
     start_time = strptime(start, '%H:%M')
@@ -71,7 +72,7 @@ def create_wikitext_item(event):
     persons_element = event.find('persons')
     if persons_element is not None:
         parameters['presenters'] = build_presenters_string(persons_element)
-    for k, v in event.find('identifiers').attrib.items():
+    for k, v in sorted(event.find('identifiers').attrib.items()):
         parameters[k] = v
     parameters['link'] = event.find('links/link').get('href')[37:]
     wikitext = build_invoke_string(parameters)
