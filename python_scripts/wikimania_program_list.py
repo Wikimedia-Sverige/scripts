@@ -5,6 +5,8 @@ import datetime
 
 DAY_TITLE_FORMAT = '%A %d %B'
 CSS_PAGE = 'Program List.css'
+PAGE_NAME = 'Program List'
+PAGE_NAMESPACE = 'Template'
 
 
 def get_next_day(days):
@@ -91,8 +93,8 @@ def build_presenters_string(persons_element):
 
 
 if __name__ == '__main__':
-    tree = ElementTree.parse(sys.argv[1])
-    print('<templatestyles src="{}" />\n'.format(CSS_PAGE))
+    tree = ElementTree.parse(sys.argv[-1])
+    out = '<templatestyles src="{}" />\n'.format(CSS_PAGE)
     root = tree.getroot()
     days = root.findall('.//day')
     day_index = 1
@@ -100,14 +102,20 @@ if __name__ == '__main__':
         day = get_next_day(days)
         days.remove(day)
         day_string = build_day_string(day)
-        print('{{#ifeq:{{{day}}}' + '|{}|'.format(day_index), end='')
-        print('{{#invoke:Program|start|accessibility={{{accessibility}}}|research={{{research}}}|strategy={{{strategy}}}|education={{{education}}}|growth={{{growth}}}|technology={{{technology}}}|partnerships={{{partnerships}}}|technology={{{technology}}}|strategy={{{strategy}}}|health={{{health}}}|partnerships={{{partnerships}}}|multimedia={{{multimedia}}}|glam={{{glam}}}}}', end='')
+        out += '{{#ifeq:{{{day}}}' + '|{}|'.format(day_index)
+        out += '{{#invoke:Program|start|accessibility={{{accessibility}}}|research={{{research}}}|strategy={{{strategy}}}|education={{{education}}}|growth={{{growth}}}|technology={{{technology}}}|partnerships={{{partnerships}}}|technology={{{technology}}}|strategy={{{strategy}}}|health={{{health}}}|partnerships={{{partnerships}}}|multimedia={{{multimedia}}}|glam={{{glam}}}}}'
         events = day.findall('.//event')
         while events:
             event = get_next_event(events)
             events.remove(event)
-            print(create_wikitext_item(event))
-        print('{{#invoke:Program|end_}}', end='')
-        print('}}')
-        print()
+            out += create_wikitext_item(event)
+        out += '{{#invoke:Program|end_}}}}\n'
         day_index += 1
+    if '--bot' in sys.argv:
+        from pywikibot import Site
+        from pywikibot import Page
+        page = Page(Site(), PAGE_NAME, PAGE_NAMESPACE)
+        page.text = out
+        page.save()
+    else:
+        print(out)
