@@ -6,9 +6,9 @@ Fortnox into a manageable tsv format.
 ## Running
 To run the script execute the command
 
-    $ python huvudbok.py data-file
+    $ ./huvudbok.py path-to-data-file
 
-For flags, see command line help (`$ python huvudbok.py --help`).
+For flags, see command line help (`$ ./huvudbok.py --help`).
 The `-f` flag in particular may be of interest.
 
 ## Files
