@@ -228,7 +228,7 @@ class Huvudbok(object):
             Section('Balanskonton', 1000, 3000, hide=True),
             Section('Verksamhetsintäkter', 3000, 3900),
             # this is actually 3520-3740 which lies inside the above range
-            Section('Försäljningsintäkter', 3900, 3900),
+            Section('Försäljningsintäkter (3520 + 3740)', 3900),
             Section('Övriga intäkter', 3900, 4000),
             Section('Kostnader', 4000, 5000),
             Section('Övriga externa kostnader', 5000, 7000),
@@ -320,8 +320,9 @@ class Huvudbok(object):
 class Section(object):
     """A section represents a series of konto to be grouped together."""
 
-    def __init__(self, name, start_konto, end_konto, hide=False):
+    def __init__(self, name, start_konto, end_konto=None, hide=False):
         """Initialise a Section."""
+        end_konto = end_konto or start_konto  # for zero width sections
         self.name = name
         self.range = range(start_konto, end_konto)
         self.hide = hide  # whether this section should not be outputted
