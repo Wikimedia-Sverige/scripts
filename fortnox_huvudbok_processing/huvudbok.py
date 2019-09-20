@@ -164,8 +164,9 @@ class Huvudbok(object):
         the SUM(A1:Z9)-function.
         """
         #@TODO:
-        # Add functionality to output empty sections
         # Add end section summing between sections
+
+        # konto are allowed in the range before the first section or after the last one, but there can be no gaps in-between
         self.sections = (
             Section('Balanskonton', 1000, 3000, hide=True),
             Section('Verksamhetsintäkter', 3000, 3900),
@@ -190,9 +191,8 @@ class Huvudbok(object):
 
             # handle sections
             if not active_section:
-                active_section = self.get_active_section(
-                    konto, write_header=True)
-            elif int(konto) not in active_section.range:
+                active_section = self.get_active_section(konto)
+            while active_section and int(konto) not in active_section.range:
                 active_section = self.swap_section(
                     active_section, data_cols, konto)
 
@@ -267,13 +267,22 @@ class Huvudbok(object):
         """Close the current section and return the new section."""
         self.close_current_section(current_section, data_cols)
 
-        return self.get_active_section(konto, True)
+        i = self.sections.index(current_section)
+        try:
+            next_section = self.sections[i + 1]
+        except IndexError:
+            return None
 
-    def get_active_section(self, konto, write_header=True):
+        # output header row
+        if not next_section.hide:
+            self.print_tsv_line([next_section.name])
+        return next_section
+
+    def get_active_section(self, konto):
         """Return the section applicable to the current konto."""
         for section in self.sections:
             if int(konto) in section.range:
-                if write_header and not section.hide:
+                if not section.hide:
                     self.print_tsv_line([section.name])
                 section.start_row = self.last_written_row
                 return section
