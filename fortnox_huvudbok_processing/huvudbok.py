@@ -1,13 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-"""Crunch Huvudbok export.
+"""Process a Fortnox Huvudbok export.
 
-python huvudbok.py path_to_huvudbok.txt path_to_projects.json, year, fancy
+python huvudbok.py path_to_huvudbok.txt
 """
+import argparse
+import datetime
 import json
 import os
 import string
-import sys
 from collections import defaultdict
 
 
@@ -24,18 +25,15 @@ class Huvudbok(object):
     }
     KS_DEFAULT = 'saknar ks'
 
-    def __init__(self, filename, projects=None, year='2018', fancy=False):
+    def __init__(self, filename, year, fancy=False):
         """Initialise a Huvudbok."""
         self.year = year
         self.all_konto = {}
         self.konto = ''
         self.results = {}
         self.all_ks = set()
-        self.projects = {}
+        self.projects = Huvudbok.load_projects(self.year) or {}
         self.last_written_row = 0  # need to keep track of row labels
-
-        if projects:
-            self.projects = Huvudbok.load_projects(projects)
 
         self.process_and_output(filename, fancy)
 
@@ -46,10 +44,16 @@ class Huvudbok(object):
             return f.readlines()
 
     @staticmethod
-    def load_projects(filename):
+    def load_projects(year):
         """Load the project json file."""
-        with open(filename) as f:
-            return json.load(f)
+        filename = 'projects_{}.json'.format(year)
+        try:
+            with open(filename) as f:
+                return json.load(f)
+        except FileNotFoundError:
+            print('Seems like a project mapping file is missing. '
+                  'Please create one at "{}". Until then the outputted result '
+                  'will not contain project names.'.format(filename))
 
     def process_and_output(self, filename, fancy):
         """Crunch the huvudbok and output the results."""
@@ -393,6 +397,26 @@ def is_int(value):
         return False
 
 
-if __name__ == "__main__":
-    args = sys.argv[1:]
-    Huvudbok(*args)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Process Fortnox huvudbok.')
+    parser.add_argument(
+        '--fancy',
+        '-f',
+        help='Output the data in a spreadsheet compatible .tsv file.',
+        action='store_true'
+    )
+    parser.add_argument(
+        '--year',
+        '-y',
+        help=(
+            'Year, for use in determining project mappings and tweaks. '
+            'If not given, the current year will be used.'),
+        default=str(datetime.date.today().year)
+    )
+    parser.add_argument(
+        'data_file',
+        help='Path to Fortnox huvudbok .txt output file.',
+        nargs=1,
+    )
+    args = parser.parse_args()
+    Huvudbok(args.data_file[0], args.year, args.fancy)
