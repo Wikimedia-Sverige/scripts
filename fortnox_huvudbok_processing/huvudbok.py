@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Crunch Huvudbok export.
 
-python Crunch_huvudbok path_to_huvudbok.txt path_to_projects.json, year, fancy
+python huvudbok.py path_to_huvudbok.txt path_to_projects.json, year, fancy
 """
 import json
 import os
@@ -25,6 +25,7 @@ class Huvudbok(object):
     KS_DEFAULT = 'saknar ks'
 
     def __init__(self, filename, projects=None, year='2018', fancy=False):
+        """Initialise a Huvudbok."""
         self.year = year
         self.all_konto = {}
         self.konto = ''
@@ -40,11 +41,13 @@ class Huvudbok(object):
 
     @staticmethod
     def load_file(filename):
+        """Load the Fortnox output file."""
         with open(filename, encoding='latin-1') as f:
             return f.readlines()
 
     @staticmethod
     def load_projects(filename):
+        """Load the project json file."""
         with open(filename) as f:
             return json.load(f)
 
@@ -163,22 +166,9 @@ class Huvudbok(object):
         The output is only suitable for being used in a spreadsheet supporting
         the SUM(A1:Z9)-function.
         """
-        #@TODO:
-        # Add end section summing between sections
+        self.sections = Huvudbok.set_up_sections()
 
-        # konto are allowed in the range before the first section or after the last one, but there can be no gaps in-between
-        self.sections = (
-            Section('Balanskonton', 1000, 3000, hide=True),
-            Section('Verksamhetsintäkter', 3000, 3900),
-            # this is actually 3520-3740 which lies inside the above range
-            Section('Försäljningsintäkter', 3900, 3900),
-            Section('Övriga intäkter', 3900, 4000),
-            Section('Kostnader', 4000, 5000),
-            Section('Övriga externa kostnader', 5000, 7000),
-            Section('Personalkostnader', 7000, 8000),
-            Section('Finansiella intäkter', 8000, 8400),
-            Section('Finansiella kostnader', 8400, 8500),
-        )
+        # output headers
         self.print_header_lines()
 
         # Each lines
@@ -208,11 +198,6 @@ class Huvudbok(object):
         if active_section:
             self.close_current_section(active_section, data_cols)
 
-        #add fancy final rows
-        # want to insert Summa intäkter before Kostnader section
-        # want to insert Summa kostnader + Verksamhetens över-/underskott before Finansiella intäkter section
-        # want to insert RESULTAT in after last one
-
     def print_tsv_line(self, line):
         """Write a list as a .tsv row. to the output file."""
         self.f_out.write('\t'.join(line) + '\n')
@@ -231,12 +216,50 @@ class Huvudbok(object):
         line += [self.projects.get(ks, '') for ks in sorted(self.all_ks)]
         self.print_tsv_line(line)
 
+    @staticmethod
+    def set_up_sections():
+        """Set up the section data.
+
+        This is largely hardcoded. Konto are allowed in the range before the
+        first section or after the last one, but the range across the sections
+        must be uninterrupted.
+        """
+        sections = (
+            Section('Balanskonton', 1000, 3000, hide=True),
+            Section('Verksamhetsintäkter', 3000, 3900),
+            # this is actually 3520-3740 which lies inside the above range
+            Section('Försäljningsintäkter', 3900, 3900),
+            Section('Övriga intäkter', 3900, 4000),
+            Section('Kostnader', 4000, 5000),
+            Section('Övriga externa kostnader', 5000, 7000),
+            Section('Personalkostnader', 7000, 8000),
+            Section('Finansiella intäkter', 8000, 8400),
+            Section('Finansiella kostnader', 8400, 8500),
+        )
+
+        # prepare post-fixes
+        section_sums = [
+            SumLine('Summa intäkter', sections[1:3]),
+            SumLine('Summa kostnader', sections[4:6])
+        ]
+        section_sums.append(
+            SumLine('Verksamhetens över-/underskott', section_sums[:])
+        )
+        section_sums.append(
+            # över/underskott + Finansiella intäkter/kostnader
+            SumLine('Resultat', [section_sums[-1]] + list(sections[-2:]))
+        )
+        sections[3].post_fixes.append(section_sums[0])
+        sections[6].post_fixes += section_sums[1:2]
+        sections[-1].post_fixes.append(section_sums[3])
+        return sections
+
     def get_data_cols(self, leading_cols):
         """Return a list of column letters to which data is outputted.
 
         @param leading_cols: Number of columns with non-data
         """
-        num_dat_cols = len(self.all_ks)  #+1 for unknown
+        num_dat_cols = len(self.all_ks)
         col_letters = list(string.ascii_uppercase)
         col_letters += ['A' + s for s in string.ascii_uppercase]
         return col_letters[leading_cols:][:num_dat_cols]
@@ -260,6 +283,12 @@ class Huvudbok(object):
             line = ['Summa {}'.format(current_section.name), '',
                     self.current_row_sum_cell(data_cols)]
             line += [current_section.col_sum_cell(col) for col in data_cols]
+            self.print_tsv_line(line)
+            self.print_tsv_line([])
+
+        for post_fix in current_section.post_fixes:
+            line = [post_fix.name, '', self.current_row_sum_cell(data_cols)]
+            line += [post_fix.col_sum_cell(col) for col in data_cols]
             self.print_tsv_line(line)
             self.print_tsv_line([])
 
@@ -292,11 +321,13 @@ class Section(object):
     """A section represents a series of konto to be grouped together."""
 
     def __init__(self, name, start_konto, end_konto, hide=False):
+        """Initialise a Section."""
         self.name = name
         self.range = range(start_konto, end_konto)
         self.hide = hide  # whether this section should not be outputted
         self.start_row = None  # row number for first outputted section data
         self.end_row = None  # row number for last outputted section data
+        self.post_fixes = []  # objects to output when the section is closed
 
     def col_sum_cell(self, col):
         """Create a string for a summation over a column of the section.
@@ -306,6 +337,36 @@ class Section(object):
         base_string = '=SUM({col}{start_row}:{col}{end_row})'
         return base_string.format(
             col=col, start_row=self.start_row, end_row=self.end_row)
+
+    @property
+    def sum_row(self):
+        """Return the row number for the outputted sum."""
+        if self.hide:
+            raise ValueError('Hidden sections have now sum rows.')
+        return self.end_row + 1
+
+
+class SumLine(object):
+    """A SumLine represents a line which should sum the provided sections."""
+
+    def __init__(self, name, summed_sections):
+        """Inititalise the SumLine.
+
+        @param summed_sections: a list of Section or SumLine Objects for
+        which the summation line should be included in the section sum.
+        """
+        self.name = name
+        self.sum_row = None
+        self.summed_sections = summed_sections
+
+    def col_sum_cell(self, col):
+        """Create a string for summing the appointed rows over a column.
+
+        @param col: The column letter to sum over
+        """
+        rows_to_sum = [section.sum_row for section in self.summed_sections]
+        cells_to_sum = ['{0}{1}'.format(col, row) for row in rows_to_sum]
+        return '=' + '+'.join(cells_to_sum)
 
 
 def fix_num(cell_value):
