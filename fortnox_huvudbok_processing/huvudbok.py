@@ -187,8 +187,7 @@ class Huvudbok(object):
             if not active_section:
                 active_section = self.get_active_section(konto)
             while active_section and int(konto) not in active_section.range:
-                active_section = self.swap_section(
-                    active_section, data_cols, konto)
+                active_section = self.swap_section(active_section, data_cols)
 
             if not (active_section and active_section.hide):
                 line = [konto, self.all_konto.get(konto),
@@ -198,9 +197,9 @@ class Huvudbok(object):
                     line.append('{:.2f}'.format(val))
                 self.print_tsv_line(line)
 
-        # close any open section
-        if active_section:
-            self.close_current_section(active_section, data_cols)
+        # close any open section and add any missing ones
+        while active_section:
+            active_section = self.swap_section(active_section, data_cols)
 
     def print_tsv_line(self, line):
         """Write a list as a .tsv row. to the output file."""
@@ -254,7 +253,7 @@ class Huvudbok(object):
             SumLine('Resultat', [section_sums[-1]] + list(sections[-2:]))
         )
         sections[3].post_fixes.append(section_sums[0])
-        sections[6].post_fixes += section_sums[1:2]
+        sections[6].post_fixes += section_sums[1:3]
         sections[-1].post_fixes.append(section_sums[3])
         return sections
 
@@ -284,7 +283,9 @@ class Huvudbok(object):
 
         # output summation row
         if not current_section.hide:
-            line = ['Summa {}'.format(current_section.name), '',
+            line = ['Summa {0}{1}'.format(current_section.name[0].lower(),
+                                          current_section.name[1:]),
+                    '',
                     self.current_row_sum_cell(data_cols)]
             line += [current_section.col_sum_cell(col) for col in data_cols]
             self.print_tsv_line(line)
@@ -294,9 +295,10 @@ class Huvudbok(object):
             line = [post_fix.name, '', self.current_row_sum_cell(data_cols)]
             line += [post_fix.col_sum_cell(col) for col in data_cols]
             self.print_tsv_line(line)
+            post_fix.sum_row = self.last_written_row
             self.print_tsv_line([])
 
-    def swap_section(self, current_section, data_cols, konto):
+    def swap_section(self, current_section, data_cols):
         """Close the current section and return the new section."""
         self.close_current_section(current_section, data_cols)
 
@@ -309,6 +311,7 @@ class Huvudbok(object):
         # output header row
         if not next_section.hide:
             self.print_tsv_line([next_section.name])
+        next_section.start_row = self.last_written_row
         return next_section
 
     def get_active_section(self, konto):
@@ -339,6 +342,8 @@ class Section(object):
 
         @param col: The column letter to sum over
         """
+        if self.start_row == self.end_row:
+            return '0'
         base_string = '=SUM({col}{start_row}:{col}{end_row})'
         return base_string.format(
             col=col, start_row=self.start_row, end_row=self.end_row)
