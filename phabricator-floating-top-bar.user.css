@@ -10,7 +10,7 @@
     .phabricator-main-menu {
         position: fixed;
         width: 100%;
-        box-shadow: 0 0 10px green;
+        box-shadow: 0 0 10px black;
     }
 
     .phabricator-standard-page-body {
