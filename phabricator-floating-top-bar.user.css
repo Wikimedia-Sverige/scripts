@@ -1,0 +1,18 @@
+/* ==UserStyle==
+@name           Floating top bar in Phabricator
+@namespace      wikimedia.se
+@version        1.0.0
+@description    Change the top bar in Phabricator to always be shown, even when you scroll down.
+@author         Sebastian Berlin <sebastian.berlin@wikimedia.se>
+==/UserStyle== */
+@-moz-document domain("phabricator.wikimedia.org") {
+    .phabricator-main-menu {
+        position: fixed;
+        width: 100%;
+        box-shadow: 0 0 10px black;
+    }
+
+    .phabricator-standard-page-body {
+        padding-top: 44px;
+    }
+}
