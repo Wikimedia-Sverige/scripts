@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.11
+// @version  1.13
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -54,6 +54,7 @@ $(function() {
     193202: "Påverkansarbete 2019",
     194101: "Förtroende 2019",
     194102: "Synlighet 2019",
+    194103: "Wikipedia och Globala målen",
     194202: "Buggrapportering och översättning 2019",
     194203: "Wikispeech 2019",
     194204: "Kunskap i krissituationer 2019",
@@ -64,6 +65,7 @@ $(function() {
     195203: "En gemenskap för alla 2019",
     195205: "Fake News 2019",
     196101: "Organisationsutveckling 2019",
+    196102: "Verktyg för partnerskap 2019 - Blueprinting",
     196201: "Erfarenhetsutbyte 2019",
     196301: "Föreningsengagemang 2019",
     196302: "FOSS för föreningen 2019",
