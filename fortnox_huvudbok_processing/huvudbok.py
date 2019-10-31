@@ -242,8 +242,8 @@ class Huvudbok(object):
 
         # prepare post-fixes
         section_sums = [
-            SumLine('Summa intäkter', sections[1:3]),
-            SumLine('Summa kostnader', sections[4:6])
+            SumLine('Summa intäkter', sections[1:4]),
+            SumLine('Summa kostnader', sections[4:7])
         ]
         section_sums.append(
             SumLine('Verksamhetens över-/underskott', section_sums[:])
