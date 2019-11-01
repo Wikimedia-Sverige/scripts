@@ -3,7 +3,7 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
 
 * fortnox_huvudbok_processing - *Scripts and datafiles to crunch the *Huvudbok* export (in .txt format) from Fortnox into a manageable tsv format.*
 * google_drive_scripts
-  * calc_burnchart.gs - "Script for the Burnchart document. Used to copy tab name
+  * calc_burnchart.gs - *Script for the Burnchart document. Used to copy tab name
     to a cell and to calculate personnel costs.*
   * calc_getSheetName.gs - *Script for Calc to create a function which returns the name of the sheet where a given cell resides.*
   * listFiles.gs - *Script for listing directories and files on Drive.*
