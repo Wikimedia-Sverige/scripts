@@ -1,5 +1,5 @@
 var rangeRef = "Staff!G1" // this is the cell in which the allowed personnel range (on the same sheet) is specified.
-var delimiterLookup = {
+var delimiterMap = {
     "COMMA": ",",
     "SEMICOLON": ";",
     "PERIOD": ".",
@@ -9,25 +9,21 @@ var delimiterLookup = {
 /**
  * Returns the name of the sheet where the given cell recides.
  *
- * @param {string} ref The cell for which we want the sheet.
+ * @param {string} cell The cell for which we want the sheet.
  * @param {string} trigger A cell reference which can be used to trigger a recalculation.
  * @return The name of the sheet where the cell recides.
  * @customfunction
  */
-function getSheetName(ref, trigger) {
+function getSheetName(cell, trigger) {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var cell = getCellReference(1);
-    return ss.getRange(cell).getSheet().getName();
-}
-
-function getDelimiter() {
-    return delimiterLookup[SpreadsheetApp.TextToColumnsDelimiter];
+    var ref = getCellReference(1);
+    return ss.getRange(ref).getSheet().getName();
 }
 
 function getCellReference(argNo) {
     var sheet = SpreadsheetApp.getActiveSheet();
     var formula = SpreadsheetApp.getActiveRange().getFormula();
-    var args = returnFormulaArgs(formula)
+    var args = getFormulaArgs(formula)
     if (argNo > args.length) {
         throw new Error("Not enough arguments.");
     }
@@ -36,14 +32,18 @@ function getCellReference(argNo) {
 }
 
 // extract cell reference formula arguments
-function returnFormulaArgs(formula) {
+function getFormulaArgs(formula) {
     var args = formula.match(/=\w+\((.*)\)/i)[1].split(getDelimiter());
-    for (i = 0; i < args.length; i++) {
+    for (var i = 0; i < args.length; i++) {
         var arg = args[i].trim().split('!')
         arg[0] = arg[0].replace(/'/g, '')
         args[i] = arg.join('!');
     }
     return args;
+}
+
+function getDelimiter() {
+    return delimiterMap[SpreadsheetApp.TextToColumnsDelimiter];
 }
 
 /**
@@ -61,7 +61,7 @@ function personnelCosts(stafflist, extra) {
 
     var list = parseListIntoVals(stafflist);
     var sum = 0;
-    for (i = 0; i < list.length; i++) {
+    for (var i = 0; i < list.length; i++) {
         var fullcost = matchInitialToCell(list[i][0], range);
         sum = sum + (fullcost * list[i][1] / 100);
     }
@@ -77,7 +77,7 @@ function personnelCosts(stafflist, extra) {
 function splitInitialsAndPercent(value) {
     var text = value.replace(/[0-9]/g, "");
     var percent = value.slice(text.length);
-    if (percent.length == 0) {
+    if (percent.length === 0) {
         percent = 100;
     } else {
         percent = parseInt(percent);
@@ -88,7 +88,7 @@ function splitInitialsAndPercent(value) {
 // parse "AC, EB50" into [(AC, 100), (EB, 50)]
 function parseListIntoVals(value) {
     var list = value.split(',');
-    for (i = 0; i < list.length; i++) {
+    for (var i = 0; i < list.length; i++) {
         list[i] = splitInitialsAndPercent(list[i].trim());
     }
     return list;
