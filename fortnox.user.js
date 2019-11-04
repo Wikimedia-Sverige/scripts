@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.13
+// @version  1.14
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -54,7 +54,7 @@ $(function() {
     193202: "Påverkansarbete 2019",
     194101: "Förtroende 2019",
     194102: "Synlighet 2019",
-    194103: "Wikipedia och Globala målen",
+    194103: "Wikipedia och Globala målen 2019",
     194202: "Buggrapportering och översättning 2019",
     194203: "Wikispeech 2019",
     194204: "Kunskap i krissituationer 2019",
