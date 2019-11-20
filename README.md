@@ -3,6 +3,7 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
 
 * fortnox_huvudbok_processing - *Scripts and datafiles to crunch the *Huvudbok* export (in .txt format) from Fortnox into a manageable tsv format.*
 * python_scripts
+  * AddressPoint.py - *script which formats an AddressPoint datafile*
   * extension_documentation.py - *generates wikitext strings to use on extension pages on the [MediaWiki-wiki](https://www.mediawiki.org).*
   * wikimania_program_list.py - *generate wikitext for program list used for Wikimania 2019.*
 * drive_calc_getSheetName.js - *Google script for Calc to create a function which returns the name of the sheet where a given cell resides.*
