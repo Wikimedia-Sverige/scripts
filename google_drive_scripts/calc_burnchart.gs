@@ -121,7 +121,7 @@ function assertArrayEquals(result, expected, errorText) {
     if (result.length !== expected.length) {
         throw new Error(errorText + ": " + result + " !== " + expected);
     }
-    for (i = 0; i < expected.length; i++) {
+    for (var i = 0; i < expected.length; i++) {
         if (result[i] instanceof Array && expected[i] instanceof Array) {
             // recurse into the nested arrays
             assertArrayEquals(result[i], expected[i], errorText)
@@ -164,4 +164,3 @@ function test_returnFormulaArg() {
     expected = ["Blad 1!A10", "A11"]
     assertArrayEquals(result, expected, "returnFormulaArgs() broken");
 }
-
