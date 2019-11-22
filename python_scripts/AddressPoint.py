@@ -6,6 +6,7 @@
 #
 import codecs
 import getopt
+import os
 import sys
 
 
@@ -24,7 +25,7 @@ def main(argv):
         elif opt == "-i":
             inputfile = arg
     if len(inputfile) > 0:
-        outputfile = u'%s-mod.txt' % inputfile[:-4]
+        outputfile = u'%s-mod.txt' % os.path.splitext(inputfile)[0]
         try:
             fIn = codecs.open(inputfile, 'r', 'Latin-1')
         except IOError:
