@@ -10,6 +10,7 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
 * python_scripts
   * AddressPoint.py - *script which formats an AddressPoint datafile*
   * extension_documentation.py - *generates wikitext strings to use on extension pages on the [MediaWiki-wiki](https://www.mediawiki.org).*
+  * replace_templates.py - *pywikibot script for replacing template usages throughout the WMSE wiki.*
   * wikimania_program_list.py - *generate wikitext for program list used for Wikimania 2019.*
 * fortnox.user.js - *Greasemonkey script for displaying project names in Fortnox.*
 * phabricator-floating-top-bar.user.css - *Stylus CSS for floating top bar in Phabricator.*
