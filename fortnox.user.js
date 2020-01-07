@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.15
+// @version  1.16
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -65,7 +65,7 @@ $(function() {
     195203: "En gemenskap för alla 2019",
     195205: "Fake News 2019",
     196101: "Organisationsutveckling 2019",
-    196102: "Verktyg för partnerskap 2019 - Blueprinting",
+    196102: "Verktyg för partnerskap 2019 – Blueprinting",
     196201: "Erfarenhetsutbyte 2019",
     196301: "Föreningsengagemang 2019",
     196302: "FOSS för föreningen 2019",
