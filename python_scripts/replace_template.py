@@ -26,7 +26,7 @@ def init_generator(old_template, site):
 
 
 def _count_changes(page, err):
-    """Count succesfully changed pages; log changed titles for display."""
+    """Count successfully changed pages; log changed titles for display."""
     # This is an async put callback
     if not isinstance(err, Exception):
         global changed_pages
