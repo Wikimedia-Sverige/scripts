@@ -70,6 +70,23 @@ $(function() {
     196301: "Föreningsengagemang 2019",
     196302: "FOSS för föreningen 2019",
     195204: "Wikimania 2019",
+    194206: "Wikispeech för AI 2020",
+    203103: "Wikipedia i utbildning 2020",
+    203120: "GLAM 2020",
+    203128: "Föreläsningar 2020",
+    203202: "Påverkansarbete 2020",
+    204101: "Förtroende 2020",
+    204102: "Synlighet 2020",
+    204202: "Buggrapportering och översättning 2020",
+    204204: "Kunskap i krissituationer 2020",
+    205101: "Stöd till gemenskapen 2020",
+    205102: "Utvecklingsstöd 2020",
+    205202: "Wiki Loves 2020",
+    205203: "En gemenskap för alla 2020",
+    206101: "Organisationsutveckling 2020",
+    206201: "Erfarenhetsutbyte 2020",
+    206301: "Föreningsengagemang 2020",
+    206302: "FOSS för föreningen 2020",
   };
   for(let i = 0; i < 14; i ++) {
     let projectName = projects[$("#project_" + i).val()];
