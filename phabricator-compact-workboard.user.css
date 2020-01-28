@@ -1,0 +1,18 @@
+/* ==UserStyle==
+@name           Make compact Phabricator workboard
+@namespace      wikimedia.se
+@version        1.0.1
+@description    Make Phabricator workboard more compact by removing sidebar.
+@author         André Costa <andre.costa@wikimedia.se>
+@updateURL      https://github.com/Wikimedia-Sverige/scripts/raw/master/phabricator-compact-workboard.user.css
+@license        CC0-1.0
+==/UserStyle== */
+@-moz-document regexp("https://phabricator.wikimedia.org/(project/(view|board)|tag)/.*") {
+    #phabricator-standard-page-body .phabricator-side-menu {
+        display: none;
+    }
+
+    #phabricator-standard-page-body .phui-workboard-view-shadow {
+        left: 0;
+    }
+}
