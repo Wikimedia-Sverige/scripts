@@ -8,11 +8,11 @@
 @license        CC0-1.0
 ==/UserStyle== */
 @-moz-document regexp("https://phabricator.wikimedia.org/(project/(view|board)|tag)/.*") {
-    .phabricator-side-menu {
-        display: none !important;
+    #phabricator-standard-page-body .phabricator-side-menu {
+        display: none;
     }
 
-    .phui-workboard-view-shadow {
-        left: 0 !important;
+    #phabricator-standard-page-body .phui-workboard-view-shadow {
+        left: 0;
     }
 }
