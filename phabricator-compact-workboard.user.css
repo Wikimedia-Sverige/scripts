@@ -7,7 +7,7 @@
 @updateURL      https://github.com/Wikimedia-Sverige/scripts/raw/master/phabricator-compact-workboard.user.css
 @license        CC0-1.0
 ==/UserStyle== */
-@-moz-document url-prefix("https://phabricator.wikimedia.org/tag/") {
+@-moz-document regexp("https://phabricator.wikimedia.org/(project/(view|board)|tag)/.*") {
     .phabricator-side-menu {
         display: none !important;
     }
