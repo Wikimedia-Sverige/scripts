@@ -1,7 +1,7 @@
 # WMSE Scripts
 This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)](https://www.wikimedia.se). Most of these scripts are single file.
 
-* fortnox_huvudbok_processing - *Scripts and datafiles to crunch the *Huvudbok* export (in .txt format) from Fortnox into a manageable tsv format.*
+* fortnox_huvudbok_processing - *Scripts and datafiles to crunch the "Huvudbok" export (in .txt format) from Fortnox into a manageable .tsv format.*
 * google_drive_scripts
   * calc_burnchart.gs - *Script for the Burnchart document. Used to copy tab name
     to a cell and to calculate personnel costs.*
@@ -12,6 +12,7 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
   * extension_documentation.py - *generates wikitext strings to use on extension pages on the [MediaWiki-wiki](https://www.mediawiki.org).*
   * wikimania_program_list.py - *generate wikitext for program list used for Wikimania 2019.*
 * fortnox.user.js - *Greasemonkey script for displaying project names in Fortnox.*
+* phabricator-compact-workboard.user.css - *Stylus CSS for removing the side menu in Phabricator workboards.*
 * phabricator-floating-top-bar.user.css - *Stylus CSS for floating top bar in Phabricator.*
 
-When adding a script, also add it to the list with a short description.
+When adding a script, also add it to this list with a short description.
