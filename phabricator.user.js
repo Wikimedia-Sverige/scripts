@@ -8,13 +8,12 @@
 // ==/UserScript==
 
 $(function() {
-  $("<a></a>")
-  	.attr("href", "/notification/query/unread/")
-  	.addClass("alert-notifications alert-unread")
-  	.append(
-    	$("<span></span>")
-    		.addClass("phabricator-main-menu-alert-icon phui-icon-view phui-font-fa fa-bullhorn")
-  	)
-  	.addClass("alert-notifications")
-  	.insertAfter(".alert-unread");
+    $("<a></a>")
+        .attr("href", "/notification/query/unread/")
+        .addClass("alert-notifications alert-unread")
+        .append(
+            $("<span></span>")
+                .addClass("phabricator-main-menu-alert-icon phui-icon-view phui-font-fa fa-bullhorn")
+        )
+        .insertAfter(".alert-unread");
 });
