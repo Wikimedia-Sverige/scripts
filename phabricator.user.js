@@ -14,6 +14,5 @@ $(function() {
             $("<span></span>")
                 .addClass("phabricator-main-menu-message-icon phui-icon-view phui-font-fa fa-bullhorn")
         )
-        .addClass("alert-notifications")
         .insertAfter(".alert-unread");
 });
