@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.16
+// @version  1.17
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -105,6 +105,20 @@ $(function() {
       } else {
         let selectedProject = projects[projectNumber];
         $(this).next().text(selectedProject);
+      }
+    });
+  }
+
+  // Highlight non-worktime
+  for(let i = 0; i < 14; i ++) {
+    let $regInput = $("#variant_" + i);
+    let regVal = $regInput.val();
+    if( regVal && regVal != "Arbetstid" ){
+      $("#row_id_" + i).css({"background-color": "#f98f8f"});
+    }
+    $regInput.on("blur", function() {
+      if( this.value &&  this.value != "Arbetstid" ){
+        $("#row_id_" + i).css({"background-color": "#f98f8f"});
       }
     });
   }
