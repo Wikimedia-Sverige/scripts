@@ -7,6 +7,7 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
     to a cell and to calculate personnel costs.*
   * calc_getSheetName.gs - *Script for Calc to create a function which returns the name of the sheet where a given cell resides.*
   * listFiles.gs - *Script for listing directories and files on Drive.*
+  * mailAlert.gs - *Send mail alerts to a separate address when Gsuite address receives mail.*
 * python_scripts
   * AddressPoint.py - *script which formats an AddressPoint datafile*
   * extension_documentation.py - *generates wikitext strings to use on extension pages on the [MediaWiki-wiki](https://www.mediawiki.org).*
