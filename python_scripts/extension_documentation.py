@@ -51,14 +51,15 @@ def print_extension_json_info(extension_json_file):
 ! Documentation"""
     print(headers_string)
     parameters = []
+    manifest_version = extension_dict["manifest_version"]
     for key, value in config.items():
         documentation = "DOCUMENTATION GOES HERE"
-        if args.manifest_version == 1:
+        if manifest_version == 1:
             default = json.dumps(value, indent=4)
-        elif args.manifest_version == 2:
+        elif manifest_version == 2:
             if "description" in value:
                 documentation = value["description"]
-                if type(documentation) == list:
+                if isinstance(documentation, list):
                     documentation = "".join(documentation)
             default = json.dumps(value["value"], indent=4)
         row = """|-
@@ -82,8 +83,8 @@ def print_extension_json_info(extension_json_file):
     print()
     print("| parameters = \n{}".format("\n".join(parameters)))
     print()
-    print_hooks()
-
+    for i, hook in enumerate(extension_dict["Hooks"], 1):
+        print("| hook{} = {}".format(i, hook))
 
 def get_update_date():
     """Get the date for the last commit from ``git log``.
@@ -98,23 +99,9 @@ def get_update_date():
     return date
 
 
-def print_hooks():
-    """Print out the hooks used by the extension.
-
-    """
-    i = 1
-    with open("{}/WikispeechHooks.php".format(args.extension_path)) as f:
-        for line in f:
-            match = RE_HOOK_FUNCTION.match(line)
-            if match:
-                print("| hook{} = {}".format(i, match.group(1)))
-                i += 1
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--extension-path", "-e", default=".")
-    parser.add_argument("--manifest-version", "-m", default="2", type=int)
     args = parser.parse_args()
     extension_json_path = "{}/extension.json".format(args.extension_path)
     with open(extension_json_path) as extension_json_file:
