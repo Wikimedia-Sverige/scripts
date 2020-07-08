@@ -84,7 +84,7 @@ $(function() {
     205202: "Wiki Loves 2020",
     205203: "En gemenskap för alla 2020",
     206101: "Organisationsutveckling 2020",
-    206102: "Verktyg för partnerskap 2020 – Blueprinting",
+    206102: "Verktyg för partnerskap 2020",
     206201: "Erfarenhetsutbyte 2020",
     206301: "Föreningsengagemang 2020",
     206302: "FOSS för föreningen 2020",
