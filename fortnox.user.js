@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Fortnox
-// @version  1.16
+// @version  1.17
 // @grant    none
 // @require  https://code.jquery.com/jquery-3.3.1.min.js
 // @include  https://apps*.fortnox.se/time/time_time/*
@@ -84,6 +84,7 @@ $(function() {
     205202: "Wiki Loves 2020",
     205203: "En gemenskap för alla 2020",
     206101: "Organisationsutveckling 2020",
+    206102: "Verktyg för partnerskap 2020",
     206201: "Erfarenhetsutbyte 2020",
     206301: "Föreningsengagemang 2020",
     206302: "FOSS för föreningen 2020",
