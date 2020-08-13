@@ -109,4 +109,18 @@ $(function() {
       }
     });
   }
+
+  // Highlight non-worktime
+  for(let i = 0; i < 14; i ++) {
+    let $regInput = $("#variant_" + i);
+    let regVal = $regInput.val();
+    if( regVal && regVal != "Arbetstid" ){
+      $("#row_id_" + i).css({"background-color": "#f98f8f"});
+    }
+    $regInput.on("blur", function() {
+      if( this.value &&  this.value != "Arbetstid" ){
+        $("#row_id_" + i).css({"background-color": "#f98f8f"});
+      }
+    });
+  }
 });
