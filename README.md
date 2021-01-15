@@ -12,6 +12,7 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
   * AddressPoint.py - *script which formats an AddressPoint datafile*
   * extension_documentation.py - *generates wikitext strings to use on extension pages on the [MediaWiki-wiki](https://www.mediawiki.org).*
   * wikimania_program_list.py - *generate wikitext for program list used for Wikimania 2019.*
+* disk-space-check - *Bash script for checking disk space remaining on a server. Sends email notification if space is running low.*
 * fortnox.user.js - *Greasemonkey script for displaying project names in Fortnox.*
 * phabricator.user.js - *Convenience script for Phabricator. Adds link to unread notifications in the top bar.*
 * phabricator-compact-workboard.user.css - *Stylus CSS for removing the side menu in Phabricator workboards.*
