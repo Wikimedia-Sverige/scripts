@@ -17,5 +17,6 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
 * phabricator.user.js - *Convenience script for Phabricator. Adds link to unread notifications in the top bar.*
 * phabricator-compact-workboard.user.css - *Stylus CSS for removing the side menu in Phabricator workboards.*
 * phabricator-floating-top-bar.user.css - *Stylus CSS for floating top bar in Phabricator.*
+* google-flip-portrait.user.css - *Stylus CSS for flipping a portrait in google services.*
 
 When adding a script, also add it to this list with a short description.
