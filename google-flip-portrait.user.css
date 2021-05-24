@@ -1,0 +1,16 @@
+/* ==UserStyle==
+@name           Flip Google portrait
+@namespace      wikimedia.se
+@version        1.0.0
+@description    Flips a user portrait in various Google services. Useful when small portrait images look similar.
+@author         Sebastian Berlin <sebastian.berlin@wikimedia.se>
+@updateURL      https://github.com/Wikimedia-Sverige/scripts/raw/master/google-flip-portrait.user.css
+@author         Sebastian Berlin
+==/UserStyle== */
+
+@-moz-document domain("google.com") {
+    /* Replace the URL below with the portrait that you want flipped.*/
+    img[src^="https://lh3.googleusercontent.com/a-/..."] {
+        transform: rotateY(180deg);
+    }
+}
