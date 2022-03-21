@@ -94,6 +94,7 @@ def main():
         # choice must be 'N'
         continue
 
+    pywikibot.output('{} page(s) were updated'.format(changed_pages))
 
 if __name__ == "__main__":
     main()
