@@ -5,7 +5,6 @@
 from queue import Queue
 
 import pywikibot
-from pywikibot import pagegenerators
 from pywikibot.tools.formatter import color_format
 
 changed_pages = 0
