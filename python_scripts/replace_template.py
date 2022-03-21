@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# Expects pywikibot 7.0
 """Bot to replace all uses of a given template by a new template."""
-from Queue import Queue
+from queue import Queue
 
 import pywikibot
 from pywikibot import pagegenerators
@@ -14,9 +15,8 @@ _pending_processed_titles = Queue()
 def init_generator(old_template, site):
     """Create a generator for pages transcluding the old template."""
     page = pywikibot.Page(
-        pywikibot.Link(old_template, defaultNamespace=10, source=site))
-    return pagegenerators.ReferringPageGenerator(
-        page, onlyTemplateInclusion=True)
+        pywikibot.Link(old_template, default_namespace=10, source=site))
+    return page.getReferences(only_template_inclusion=True)
 
 
 def _count_changes(page, err):
@@ -25,9 +25,9 @@ def _count_changes(page, err):
     if not isinstance(err, Exception):
         global changed_pages
         changed_pages += 1
-        _pending_processed_titles.put((page.title(asLink=True), True))
+        _pending_processed_titles.put((page.title(as_link=True), True))
     else:  # unsuccessful pages
-        _pending_processed_titles.put((page.title(asLink=True), False))
+        _pending_processed_titles.put((page.title(as_link=True), False))
 
 
 def _replace_async_callback(page, err):
@@ -39,7 +39,7 @@ def main():
     """Main entrypoint for the script."""
     always = False
     site = pywikibot.Site('se', 'wikimediachapter')
-    site.login(sysop=True)
+    site.login()
     old_template = pywikibot.input('Name of old template (no prefix)')
     new_template = pywikibot.input('Name of new template (no prefix)')
     summary = pywikibot.input('Edit summary')
@@ -51,12 +51,12 @@ def main():
         try:
             # Load the page's text from the wiki
             original_text = page.get(get_redirect=True)
-            if not page.canBeEdited():
+            if not page.has_permission('edit'):
                 pywikibot.output(
-                    "You can't edit page %s" % page.title(asLink=True))
+                    "You can't edit page %s" % page.title(as_link=True))
                 continue
         except pywikibot.NoPage:
-            pywikibot.output('Page %s not found' % page.title(asLink=True))
+            pywikibot.output('Page %s not found' % page.title(as_link=True))
             continue
 
         new_text = original_text.replace(
@@ -84,7 +84,7 @@ def main():
             page.save(summary=summary,
                       asynchronous=True,
                       callback=_replace_async_callback,
-                      quiet=True, as_group='sysop')
+                      quiet=True)
         # choice must be 'N'
         continue
 
