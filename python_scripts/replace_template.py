@@ -1,17 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 """Bot to replace all uses of a given template by a new template."""
-from __future__ import absolute_import, unicode_literals
-import sys
+from Queue import Queue
+
 import pywikibot
 from pywikibot import pagegenerators
 from pywikibot.tools.formatter import color_format
-
-if sys.version_info[0] > 2:
-    from queue import Queue
-    long = int
-else:
-    from Queue import Queue
 
 changed_pages = 0
 _pending_processed_titles = Queue()
@@ -46,9 +40,9 @@ def main():
     always = False
     site = pywikibot.Site('se', 'wikimediachapter')
     site.login(sysop=True)
-    old_template = pywikibot.input(u'Name of old template (no prefix)')
-    new_template = pywikibot.input(u'Name of new template (no prefix)')
-    summary = pywikibot.input(u'Edit summary')
+    old_template = pywikibot.input('Name of old template (no prefix)')
+    new_template = pywikibot.input('Name of new template (no prefix)')
+    summary = pywikibot.input('Edit summary')
 
     summary = '{sum} ({old} -> {new})'.format(
         sum=summary, old='{{%s' % old_template, new='{{%s' % new_template)
@@ -78,7 +72,7 @@ def main():
             choice = 'y'
         else:
             choice = pywikibot.input_choice(
-                u'Do you want to accept these changes?',
+                'Do you want to accept these changes?',
                 [('Yes', 'y'), ('No', 'n'), ('all', 'a')],
                 default='N')
 
@@ -95,6 +89,7 @@ def main():
         continue
 
     pywikibot.output('{} page(s) were updated'.format(changed_pages))
+
 
 if __name__ == "__main__":
     main()
