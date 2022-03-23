@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 # Expects pywikibot 7.0
 """Bot to replace all uses of a given template by a new template."""
 from queue import Queue
