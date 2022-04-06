@@ -11,6 +11,7 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
 * python_scripts
   * AddressPoint.py - *script which formats an AddressPoint datafile*
   * extension_documentation.py - *generates wikitext strings to use on extension pages on the [MediaWiki-wiki](https://www.mediawiki.org).*
+  * verify_mbox.py - *Verifies that an MBOX file contains the messages of another.*
   * wikimania_program_list.py - *generate wikitext for program list used for Wikimania 2019.*
 * disk-space-check - *Bash script for checking disk space remaining on a server. Sends email notification if space is running low.*
 * fortnox.user.js - *Greasemonkey script for displaying project names in Fortnox.*
