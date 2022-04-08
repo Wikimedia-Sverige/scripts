@@ -1,9 +1,11 @@
 #! /usr/bin/env python3
-"""Verify that an MBOX file contains all the messages in another MBOX file.
+"""Verify all messages in MBOX file (`mbox1`) are in other MBOX file (`mbox2`)
 
-Each missing message has its id prenited to stdout and the message is
+Each missing message has its id printed to stdout and the message is
 saved to missing.mbox. Ignores the parameter X-GM-THRID.
 
+Requirements:
+* tqdm>=4.64.0,==4.*
 """
 
 from argparse import ArgumentParser
@@ -35,15 +37,16 @@ for message1 in tqdm(box1):
         continue
 
     del message2["X-GM-THRID"]
-    if not str(message1).strip() == str(message2).strip():
+    if str(message1).strip() != str(message2).strip():
         # Check complete messages content if the id matches. Save
         # message if there are inconsistencies.
         missing.append(message1)
 
 if missing:
-    print(f"Messages not in second mbox:")
+    print("Messages missing from or different in second mbox:")
     box_missing = mailbox.mbox("missing.mbox")
     for message in missing:
         print(message["Message-ID"])
         box_missing.add(message)
     box_missing.close()
+    print("Messages written to missing.mbox.")
