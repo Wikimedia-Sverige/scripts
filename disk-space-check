@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Adapted from
+# https://www.linuxjournal.com/content/tech-tip-send-email-alert-when-your-disk-space-gets-low
+
+# Send notification if disk space usage is greater or equal to this,
+# in percents.
+THRESHOLD=90
+
+# Email address to send notification to.
+EMAIL=drift@wikimedia.se
+
+current=$(df / | grep / | awk '{ print $5}' | sed 's/%//g')
+
+if [ "$current" -ge "$THRESHOLD" ] ; then
+    mail -s 'Disk Space Alert' $EMAIL << EOF
+Your root partition remaining free space is critically low. Used: $current%
+EOF
+fi
