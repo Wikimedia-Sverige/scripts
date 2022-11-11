@@ -1,9 +1,12 @@
+#! /usr/bin/env python
+
 # Expects pywikibot 7.0
 """Bot to replace all uses of a given template by a new template."""
 from queue import Queue
 
 import pywikibot
 from pywikibot.tools.formatter import color_format
+from pywikibot.bot_choice import QuitKeyboardInterrupt
 
 changed_pages = 0
 _pending_processed_titles = Queue()
@@ -68,10 +71,13 @@ def main():
         if always:
             choice = 'y'
         else:
-            choice = pywikibot.input_choice(
-                'Do you want to accept these changes?',
-                [('Yes', 'y'), ('No', 'n'), ('all', 'a')],
-                default='N')
+            try:
+                choice = pywikibot.input_choice(
+                    'Do you want to accept these changes?',
+                    [('Yes', 'y'), ('No', 'n'), ('all', 'a')],
+                    default='N')
+            except QuitKeyboardInterrupt:
+                break
 
         if choice == 'a':
             always = True
