@@ -40,7 +40,7 @@ def ask_parameter():
     """Ask user for a parameter."""
     answer = pywikibot.input("Filter by parameter (key=value). Leave empty to skip")
     try:
-        key, value = re.split("\s*=\s*", answer)
+        key, value = re.split(r"\s*=\s*", answer)
     except ValueError:
         return None
 
@@ -73,14 +73,17 @@ def main():
             continue
 
         if parameter:
-            # Only replace templates with a parameter if given.
+            # Only replace templates with a parameter, if given.
             parts = original_text.split('{{' + old_template)
             new_text = parts[0]
             for part in parts[1:]:
-                if re.search(
-                        "{}\s*=\s*{}".format(parameter[0], parameter[1]),
-                        part
-                ):
+                pattern = re.compile(
+                    r"(^|\|){}\s*=\s*{}(\}}|$)".format(
+                        parameter[0],
+                        parameter[1]
+                    ),
+                re.M)
+                if pattern.search(part):
                     new_text += '{{' + new_template
                 else:
                     new_text += '{{' + old_template
