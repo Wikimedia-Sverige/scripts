@@ -20,5 +20,6 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
 * phabricator-compact-workboard.user.css - *Stylus CSS for removing the side menu in Phabricator workboards.*
 * phabricator-floating-top-bar.user.css - *Stylus CSS for floating top bar in Phabricator.*
 * google-flip-portrait.user.css - *Stylus CSS for flipping a portrait in google services.*
+* sites-redirect-test.sh - *Prints the final URL for domains hosted on sites.wikimedia.se to quickly see that redirects work as they should.*
 
 When adding a script, also add it to this list with a short description.
