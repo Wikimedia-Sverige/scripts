@@ -3,6 +3,7 @@
 # Expects pywikibot 7.0
 """Bot to replace all uses of a given template by a new template."""
 from queue import Queue
+import re
 
 import pywikibot
 from pywikibot.tools.formatter import color_format
@@ -35,6 +36,17 @@ def _replace_async_callback(page, err):
     _count_changes(page, err)
 
 
+def ask_parameter():
+    """Ask user for a parameter."""
+    answer = pywikibot.input("Filter by parameter (key=value). Leave empty to skip")
+    try:
+        key, value = re.split(r"\s*=\s*", answer)
+    except ValueError:
+        return None
+
+    return key, value
+
+
 def main():
     """Main entrypoint for the script."""
     always = False
@@ -42,6 +54,7 @@ def main():
     site.login()
     old_template = pywikibot.input('Name of old template (no prefix)')
     new_template = pywikibot.input('Name of new template (no prefix)')
+    parameter = ask_parameter()
     summary = pywikibot.input('Edit summary')
 
     summary = '{sum} ({old} -> {new})'.format(
@@ -59,8 +72,26 @@ def main():
             pywikibot.output('Page %s not found' % page.title(as_link=True))
             continue
 
-        new_text = original_text.replace(
-            '{{' + old_template, '{{' + new_template)
+        if parameter:
+            # Only replace templates with a parameter, if given.
+            parts = original_text.split('{{' + old_template)
+            new_text = parts[0]
+            for part in parts[1:]:
+                pattern = re.compile(
+                    r"(^|\|){}\s*=\s*{}(\}}|$)".format(
+                        parameter[0],
+                        parameter[1]
+                    ),
+                re.M)
+                if pattern.search(part):
+                    new_text += '{{' + new_template
+                else:
+                    new_text += '{{' + old_template
+                new_text += part
+        else:
+            new_text = original_text.replace(
+                '{{' + old_template, '{{' + new_template)
+
         if original_text == new_text:
             continue
 
