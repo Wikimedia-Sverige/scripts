@@ -16,6 +16,7 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
   * wikimania_program_list.py - *generate wikitext for program list used for Wikimania 2019.*
 * disk-space-check - *Bash script for checking disk space remaining on a server. Sends email notification if space is running low.*
 * fortnox.user.js - *Greasemonkey script for displaying project names in Fortnox.*
+* fortnox-login.user.js - *Tampermonkey script for preventing the login button to open in a new tab/window.*
 * phabricator.user.js - *Convenience script for Phabricator. Adds link to unread notifications in the top bar.*
 * phabricator-compact-workboard.user.css - *Stylus CSS for removing the side menu in Phabricator workboards.*
 * phabricator-floating-top-bar.user.css - *Stylus CSS for floating top bar in Phabricator.*
