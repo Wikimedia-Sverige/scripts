@@ -233,7 +233,7 @@ class Huvudbok(object):
             # this is actually 3520-3740 which lies inside the above range
             Section('Försäljningsintäkter (3520 + 3740)', 3900),
             Section('Övriga intäkter', 3900, 4000),
-            Section('Kostnader', 4000, 5000),
+            Section('Kostnader underlevernatörer', 4000, 5000),
             Section('Övriga externa kostnader', 5000, 7000),
             Section('Personalkostnader', 7000, 7800),
             Section('Finansiella intäkter', 7800, 8400),
