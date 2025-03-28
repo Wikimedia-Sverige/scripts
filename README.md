@@ -1,4 +1,5 @@
 # WMSE Scripts
+
 This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)](https://www.wikimedia.se). Most of these scripts are single file.
 
 * fortnox_huvudbok_processing - *Scripts and datafiles to crunch the "Huvudbok" export (in .txt format) from Fortnox into a manageable .tsv format.*
@@ -14,6 +15,9 @@ This repository contains miscellaneous scripts used by [Wikimedia Sverige (WMSE)
   * verify_mbox.py - *Verifies that an MBOX file contains the messages of another.*
   * replace_templates.py - *pywikibot script for replacing template usages throughout the WMSE wiki.*
   * wikimania_program_list.py - *generate wikitext for program list used for Wikimania 2019.*
+  * wikiLoves_analysis
+    * extract_user_data_from_wikiloves_db.py - *Parse user data from Sweden competitions from wikiloves.toolforge.org database and dump as json for further analysis.*
+    * basic_user_statistics.py - *Extract some basic statistics from the dumped user data.*
 * disk-space-check - *Bash script for checking disk space remaining on a server. Sends email notification if space is running low.*
 * fortnox.user.js - *Greasemonkey script for displaying project names in Fortnox.*
 * fortnox-login.user.js - *Tampermonkey script for preventing the login button to open in a new tab/window.*
